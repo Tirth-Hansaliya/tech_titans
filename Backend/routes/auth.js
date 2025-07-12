@@ -9,8 +9,8 @@ const { v4: uuidv4 } = require('uuid');
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
-    user: 'nand13112004@gmail.com',      // <-- Replace this with your Gmail address
-    pass: 'dmoxjxrwganaaalg'         // <-- Replace this with your Gmail App Password
+    user: 'nand13112004@gmail.com',      // Replace with your Gmail
+    pass: 'dmoxjxrwganaaalg'             // Replace with your Gmail App Password
   }
 });
 
@@ -49,7 +49,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login user
+// ✅ Updated Login user
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -71,7 +71,16 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ message: 'Invalid credentials' });
     }
 
-    res.status(200).json({ message: 'Login successful' });
+    // ✅ Return user data
+    res.status(200).json({
+      message: 'Login successful',
+      user: {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role || 'user'
+      }
+    });
   } catch (error) {
     console.error('Error in /login:', error);
     res.status(500).json({ message: 'Server error' });
@@ -82,9 +91,11 @@ router.post('/login', async (req, res) => {
 router.get('/verify/:token', async (req, res) => {
   const user = await User.findOne({ verificationToken: req.params.token });
   if (!user) return res.status(400).send('Invalid token');
+
   user.verified = true;
   user.verificationToken = undefined;
   await user.save();
+
   // Redirect to login page
   res.redirect('http://localhost:3000/login');
 });

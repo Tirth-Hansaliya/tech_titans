@@ -7,7 +7,9 @@ import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(
+    !!localStorage.getItem('userId') // Persist login across refresh
+  );
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -18,17 +20,36 @@ function App() {
       <Routes>
         <Route path="/register" element={<Register onRegister={handleLogin} />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
-        <Route path="/dashboard" element={isLoggedIn ? (
-          <>
-            <Header />
-            <Dashboard />
-          </>
-        ) : (
-          <Navigate to="/login" />
-        )} />
-        <Route path="/profile" element={<Profile />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            isLoggedIn ? (
+              <>
+                <Header />
+                <Dashboard />
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
+        <Route
+          path="/profile"
+          element={
+            isLoggedIn ? (
+              <>
+                <Header />
+                <Profile />
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
         <Route path="*" element={<Navigate to="/login" />} />
-        
       </Routes>
     </Router>
   );

@@ -18,20 +18,31 @@ function Login({ onLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('');
+
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+
       const data = await response.json();
 
+      console.log('Login Response:', data); // 🔍 Log for debugging
+
       if (response.ok) {
-        localStorage.setItem('userId', data.user._id); // Save userId
-        setMessage('Login successful!');
-        setFormData({ email: '', password: '' });
-        if (onLogin) onLogin();
-        navigate('/dashboard');
+        const user = data?.user;
+
+        if (user && user._id) {
+          localStorage.setItem('userId', user._id); // ✅ Safe access
+          setMessage('Login successful!');
+          setFormData({ email: '', password: '' });
+          if (onLogin) onLogin();
+          navigate('/dashboard');
+        } else {
+          setMessage('Invalid response from server. User ID missing.');
+        }
+
       } else {
         setMessage(data.message || 'Login failed');
       }
