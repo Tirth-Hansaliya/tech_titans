@@ -1,26 +1,24 @@
 .header {
-  background-color: #007bff;
-  padding: 1rem;
-}
-
-.nav-links {
-  list-style: none;
   display: flex;
-  justify-content: flex-end;
-  margin: 0;
-  padding: 0;
+  justify-content: space-between;
+  align-items: center;
+  background: #0077ee;
+  padding: 1rem 2rem;
 }
 
-.nav-links li {
-  margin-left: 1rem;
+.header-left, .header-right {
+  display: flex;
+  gap: 1.5rem;
 }
 
-.nav-links a {
-  color: white;
+.header-btn {
+  color: #fff;
   text-decoration: none;
   font-weight: bold;
+  font-size: 1.1rem;
+  transition: text-decoration 0.2s;
 }
 
-.nav-links a:hover {
+.header-btn:hover {
   text-decoration: underline;
 }

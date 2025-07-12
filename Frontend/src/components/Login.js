@@ -27,6 +27,7 @@ function Login({ onLogin }) {
       const data = await response.json();
 
       if (response.ok) {
+        localStorage.setItem('userId', data.user._id); // Save userId
         setMessage('Login successful!');
         setFormData({ email: '', password: '' });
         if (onLogin) onLogin();

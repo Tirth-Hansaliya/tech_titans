@@ -1,0 +1,161 @@
+.home-container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.search-bar {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2rem;
+}
+
+.search-bar input,
+.search-bar select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.user-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.user-card {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.user-card:hover {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+}
+
+.profile-photo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: #f0f0f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.placeholder {
+  color: #aaa;
+  font-size: 0.9rem;
+}
+
+.user-info h2 {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.3rem;
+}
+
+.location {
+  color: #666;
+  font-size: 0.95rem;
+  margin-bottom: 0.3rem;
+}
+
+.skills {
+  font-size: 0.98rem;
+  margin-bottom: 0.2rem;
+}
+
+.label {
+  color: #0077cc;
+  font-weight: 500;
+}
+
+.availability {
+  font-size: 0.95rem;
+  color: #444;
+  margin-bottom: 0.2rem;
+}
+
+.rating {
+  margin-top: 0.3rem;
+  font-size: 1.1rem;
+  color: #f5b301;
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.star {
+  color: #ccc;
+  font-size: 1.1rem;
+}
+
+.star.filled {
+  color: #f5b301;
+}
+
+.rating-value {
+  color: #444;
+  font-size: 0.95rem;
+  margin-left: 0.2rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 2rem;
+}
+
+.pagination button {
+  background: #f0f0f0;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.pagination button.active,
+.pagination button:hover {
+  background: #0077cc;
+  color: #fff;
+}
+
+.error {
+  color: #d32f2f;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 700px) {
+  .user-list {
+    grid-template-columns: 1fr;
+  }
+  .user-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .profile-photo {
+    margin-bottom: 1rem;
+  }
+} 

@@ -4,6 +4,7 @@ import Header from './components/Header';
 import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
+import Profile from './components/Profile';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -25,7 +26,9 @@ function App() {
         ) : (
           <Navigate to="/login" />
         )} />
+        <Route path="/profile" element={<Profile />} />
         <Route path="*" element={<Navigate to="/login" />} />
+        
       </Routes>
     </Router>
   );
