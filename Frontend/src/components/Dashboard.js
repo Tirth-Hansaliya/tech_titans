@@ -37,10 +37,10 @@ export default function Dashboard() {
         page,
         limit: PAGE_SIZE,
       });
-      const res = await fetch(`/api/users?${params.toString()}`);
-      if (!res.ok) throw new Error('Failed to fetch users');
+      const res = await fetch(`/api/profiles/public?${params.toString()}`);
+      if (!res.ok) throw new Error('Failed to fetch profiles');
       const data = await res.json();
-      setUsers(data.users);
+      setUsers(data.profiles);
       setTotal(data.total);
     } catch (err) {
       setError(err.message);

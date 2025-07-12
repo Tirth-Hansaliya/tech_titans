@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
     let profile = await Profile.findOne({ userId });
 
     if (profile) {
-      // Update
+      // Update existing profile
       profile.set({
         name,
         location,
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
       return res.json(profile);
     }
 
-    // Create new
+    // Create new profile
     profile = new Profile({
       userId,
       name,
@@ -53,6 +53,34 @@ router.post('/', async (req, res) => {
     res.status(201).json(profile);
   } catch (error) {
     console.error('Error in /api/profiles POST:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+ // ✅ NEW: Get all public profiles with filters and pagination
+router.get('/public', async (req, res) => {
+  try {
+    const { search = '', skill = '', availability = '', page = 1, limit = 6 } = req.query;
+
+    const query = {
+      isPublic: true,
+      ...(availability && { availability }),
+      ...(search && { name: { $regex: search, $options: 'i' } }),
+      ...(skill && {
+        $or: [
+          { skillsOffered: { $regex: skill, $options: 'i' } },
+          { skillsWanted: { $regex: skill, $options: 'i' } },
+        ],
+      }),
+    };
+
+    const skip = (parseInt(page) - 1) * parseInt(limit);
+    const profiles = await Profile.find(query).skip(skip).limit(parseInt(limit));
+    const total = await Profile.countDocuments(query);
+
+    res.json({ profiles, total });
+  } catch (error) {
+    console.error('Error fetching public profiles:', error);
     res.status(500).json({ message: 'Server error' });
   }
 });
