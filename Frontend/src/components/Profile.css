@@ -25,7 +25,10 @@ h1 {
 
 .profile-form input[type="text"],
 .profile-form input[type="file"],
-.profile-form select {
+.profile-form select,
+.profile-form input[type="email"],
+.profile-form input[type="date"],
+.profile-form textarea {
   padding: 0.5rem 1rem;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -129,8 +132,50 @@ h1 {
   background: #005fa3;
 }
 
+/* Tabs styles */
+.tabs {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+  gap: 1rem;
+}
+
+.tab {
+  background: #f0f0f0;
+  border: none;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 4px 4px 0 0;
+  transition: background 0.2s;
+}
+
+.tab:hover {
+  background: #dcdcdc;
+}
+
+.tab.active {
+  background: #0077cc;
+  color: white;
+  font-weight: 600;
+  cursor: default;
+}
+
 @media (max-width: 600px) {
   .profile-container {
     padding: 1rem 0.5rem;
   }
-} 
+  .tabs {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .tab {
+    border-radius: 4px;
+  }
+}
+
+@media (max-width: 600px) {
+  .profile-container {
+    padding: 1rem 0.5rem;
+  }
+}

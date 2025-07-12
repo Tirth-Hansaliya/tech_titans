@@ -7,11 +7,20 @@ router.post('/', async (req, res) => {
   const {
     userId,
     name,
+    gender,
+    dob,
+    email,
+    phoneNumber,
+    linkedin,
+    github,
     location,
     profilePhoto,
     skillsOffered,
     skillsWanted,
+    skillsRequired,
     availability,
+    bio,
+    education,
     isPublic
   } = req.body;
 
@@ -26,11 +35,20 @@ router.post('/', async (req, res) => {
       // Update existing profile
       profile.set({
         name,
+        gender,
+        dob,
+        email,
+        phoneNumber,
+        linkedin,
+        github,
         location,
         profilePhoto,
         skillsOffered,
         skillsWanted,
+        skillsRequired,
         availability,
+        bio,
+        education,
         isPublic
       });
       await profile.save();
@@ -41,11 +59,20 @@ router.post('/', async (req, res) => {
     profile = new Profile({
       userId,
       name,
+      gender,
+      dob,
+      email,
+      phoneNumber,
+      linkedin,
+      github,
       location,
       profilePhoto,
       skillsOffered,
       skillsWanted,
+      skillsRequired,
       availability,
+      bio,
+      education,
       isPublic
     });
 
