@@ -10,6 +10,7 @@ export default function Header() {
         <Link to="/profile" className="header-btn">Profile</Link>
       </div>
       <div className="header-right">
+        <Link to="/requests" className="header-btn">Requests</Link>
         <Link to="/register" className="header-btn">Register</Link>
         <Link to="/login" className="header-btn">Login</Link>
       </div>

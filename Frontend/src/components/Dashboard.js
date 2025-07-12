@@ -21,6 +21,8 @@ export default function Dashboard() {
   const [availability, setAvailability] = useState('');
   const [page, setPage] = useState(1);
   const [error, setError] = useState('');
+  const [requestError, setRequestError] = useState('');
+  const [requestSuccess, setRequestSuccess] = useState('');
 
   useEffect(() => {
     fetchUsers();
@@ -44,6 +46,29 @@ export default function Dashboard() {
       setTotal(data.total);
     } catch (err) {
       setError(err.message);
+    }
+  }
+
+  async function sendRequest(receiverId) {
+    setRequestError('');
+    setRequestSuccess('');
+    try {
+      const res = await fetch('/api/requests', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Add authorization header if needed, e.g. token from localStorage
+          // 'Authorization': `Bearer ${token}`,
+        },
+        body: JSON.stringify({ receiverId }),
+      });
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || 'Failed to send request');
+      }
+      setRequestSuccess('Request sent successfully');
+    } catch (err) {
+      setRequestError(err.message);
     }
   }
 
@@ -72,6 +97,8 @@ export default function Dashboard() {
         </select>
       </div>
       {error && <div className="error">{error}</div>}
+      {requestError && <div className="error">{requestError}</div>}
+      {requestSuccess && <div className="success">{requestSuccess}</div>}
       <div className="user-list">
         {users.map(user => (
           <div className="user-card" key={user._id}>
@@ -92,6 +119,7 @@ export default function Dashboard() {
                 <span className="label">Skills Wanted:</span> {user.skillsWanted.join(', ')}
               </div>
               <div className="availability">Availability: {user.availability}</div>
+              <button className="request-button" onClick={() => sendRequest(user._id)}>Send Request</button>
               <div className="rating">
                 <StarRating rating={Math.round(user.rating)} />
                 <span className="rating-value">({user.rating ? user.rating.toFixed(1) : '0.0'})</span>

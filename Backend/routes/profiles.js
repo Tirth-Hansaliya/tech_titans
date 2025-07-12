@@ -87,6 +87,7 @@ router.post('/', async (req, res) => {
  // ✅ NEW: Get all public profiles with filters and pagination
 router.get('/public', async (req, res) => {
   try {
+    console.log('Query params:', req.query);
     const { search = '', skill = '', availability = '', page = 1, limit = 6 } = req.query;
 
     const query = {
@@ -100,6 +101,8 @@ router.get('/public', async (req, res) => {
         ],
       }),
     };
+
+    console.log('Constructed query:', query);
 
     const skip = (parseInt(page) - 1) * parseInt(limit);
     const profiles = await Profile.find(query).skip(skip).limit(parseInt(limit));

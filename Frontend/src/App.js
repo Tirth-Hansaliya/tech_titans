@@ -5,8 +5,11 @@ import Register from './components/Register';
 import Login from './components/Login';
 import Dashboard from './components/Dashboard';
 import Profile from './components/Profile';
+import VideoCall from './components/VideoCall';
+import Requests from './components/Requests';
 
 function App() {
+   
   const [isLoggedIn, setIsLoggedIn] = useState(
     !!localStorage.getItem('userId') // Persist login across refresh
   );
@@ -49,10 +52,25 @@ function App() {
           }
         />
 
+        <Route
+          path="/requests"
+          element={
+            isLoggedIn ? (
+              <>
+                <Header />
+                <Requests />
+              </>
+            ) : (
+              <Navigate to="/login" />
+            )
+          }
+        />
+
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </Router>
   );
+  
 }
 
 export default App;
